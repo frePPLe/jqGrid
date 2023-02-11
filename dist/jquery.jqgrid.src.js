@@ -2,13 +2,13 @@
 // @compilation_level SIMPLE_OPTIMIZATIONS
 
 /**
- * @license jqGrid 4.15.5-pre - free jqGrid: https://github.com/free-jqgrid/jqGrid
+ * @license jqGrid 4.15.5 - free jqGrid: https://github.com/free-jqgrid/jqGrid
  * Copyright (c) 2008-2014, Tony Tomov, tony@trirand.com
  * Copyright (c) 2014-2018, Oleg Kiriljuk, oleg.kiriljuk@ok-soft-gmbh.com
  * Dual licensed under the MIT and GPL licenses
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
- * Date: 2018-08-12
+ * Date: 2018-08-13
  */
 //jsHint options
 /*jshint eqnull:true */
@@ -381,7 +381,7 @@
 
 	$.extend(true, jgrid, {
 		/** @const */
-		version: "4.15.5-pre",
+		version: "4.15.5",
 		/** @const */
 		productName: "free jqGrid",
 		defaults: {},
@@ -12069,18 +12069,26 @@
 
 				// populate drop down with user provided column definitions
 				var j = 0, searchable, hidden, ignoreHiding;
-				for (i = 0; i < that.p.columns.length; i++) {
-					// but show only serchable and serchhidden = true fields
-					searchable = (that.p.columns[i].search === undefined) ? true : that.p.columns[i].search;
-					hidden = (that.p.columns[i].hidden === true);
-					ignoreHiding = (that.p.columns[i].searchoptions.searchhidden === true);
+				// Frepple customization: Sort the options by label to keep long lists readable
+				var sortedcolumns = that.p.columns.slice().sort(function (a, b) {
+					if (a.label < b.label) {
+						return -1;
+					} else {
+						return (a.label === b.label) ? 0 : 1;
+					}
+				});
+				for (i = 0; i < sortedcolumns.length; i++) {
+					// but show only searchable and serchhidden = true fields
+					searchable = (sortedcolumns[i].search === undefined) ? true : sortedcolumns[i].search;
+					hidden = (sortedcolumns[i].hidden === true);
+					ignoreHiding = (sortedcolumns[i].searchoptions.searchhidden === true);
 					if ((ignoreHiding && searchable) || (searchable && !hidden)) {
 						selected = "";
-						if (rule.field === that.p.columns[i].name) {
+						if (rule.field === sortedcolumns[i].name) {
 							selected = " selected='selected'";
 							j = i;
 						}
-						str += "<option value='" + that.p.columns[i].name + "'" + selected + ">" + that.p.columns[i].label + "</option>";
+						str += "<option value='" + sortedcolumns[i].name + "'" + selected + ">" + sortedcolumns[i].label + "</option>";
 					}
 				}
 				ruleFieldSelect.append(str);
@@ -12445,21 +12453,21 @@
 
 	/**
 		The below work is licensed under Creative Commons GNU LGPL License.
-
+	
 		Original work:
-
+	
 		License:     http://creativecommons.org/licenses/LGPL/2.1/
 		Author:      Stefan Goessner/2006
 		Web:         http://goessner.net/
-
+	
 		Modifications made:
-
+	
 		Version:     0.9-p5
 		Description: Restructured code, JSLint validated (no strict whitespaces),
 					 added handling of empty arrays, empty strings, and int/floats values.
 		Author:      Michael Schøler/2008-01-29
 		Web:         http://michael.hinnerup.net/blog/2008/01/26/converting-json-to-xml-and-xml-to-json/
-
+	
 		Description: json2xml added support to convert functions as CDATA
 					 so it will be easy to write characters that cause some problems when convert
 		Author:      Tony Tomov
