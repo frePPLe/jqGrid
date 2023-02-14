@@ -7,8 +7,8 @@ A bit of history is in order.
 - jqGrid was developed originally by [Tony Tomov](https://github.com/tonytomov) and it was available under MIT/GPL-licenses till  the version 4.7.0 published Dec 8, 2014 (see [here](https://github.com/tonytomov/jqGrid/tree/v4.7.0)). Short time after that the [license agreement](http://guriddo.net/?page_id=103334) was changed.
 
 - [Oleg Kiriljuk](https://github.com/OlegKi) forked the last MIT-GPL version of the code in the
-  https://github.com/free-jqgrid/jqGrid and continued development. The last commit was in Jan 2019, so we can
-  consider the fork unmaintained and supported.
+  [free-jqgrid](https://github.com/free-jqgrid/jqGrid) project and continued development. The last commit
+  was in Jan 2019, so we can consider the project unmaintained and unsupported.
 
 - As a long-time & happy user of jqgrid this repository aims at maintaining a working version of
   free-jqgrid. We'll gladly accept pull requests of others that are also interested in a 100% free
